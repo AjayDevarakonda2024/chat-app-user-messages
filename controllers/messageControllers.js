@@ -20,3 +20,18 @@ exports.saveNewMessage = async(req, res)=>{
         res.status(500).json(err)
     }
 }
+
+exports.updateMessage = async (req, res) => {
+    try{
+        let updated = await usermessage.findOneAndUpdate({"_id": req.params.id}, req.body);
+        if(!updated){
+            res.status(400).json({"message" : "message not updated !!"})
+        }
+        else{
+            res.status(200).json({"message" : "message updated successfully !!"})
+        }
+    }
+    catch(err){
+        res.status(500).json(err)
+    }
+}
