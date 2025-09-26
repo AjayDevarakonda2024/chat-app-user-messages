@@ -33,7 +33,7 @@ exports.saveNewMessage = async(req, res)=>{
 
 exports.updateMessage = async (req, res) => {
     try{
-        let updated = await usermessage.findOneAndUpdate({"_id": req.params.id}, req.body);
+        let updated = await usermessage.findOneAndUpdate({"_id": req.params.id}, req.body, { new: true, runValidators: true });
         if(!updated){
             res.status(400).json({"message" : "message not updated !!"})
         }
