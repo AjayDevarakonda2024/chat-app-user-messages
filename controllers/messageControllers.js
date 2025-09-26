@@ -10,6 +10,16 @@ exports.getMessages = async (req, res)=>{
     }
 }
 
+exports.getMessagesById = async (req, res)=>{
+    try{
+        const msg = await usermessage.find({"_id": req.params.id})
+        res.json(msg)
+    }
+    catch(err){
+        res.status(500).json(err)
+    }
+}
+
 exports.saveNewMessage = async(req, res)=>{
     try{
         const newMessage = new usermessage(req.body);
