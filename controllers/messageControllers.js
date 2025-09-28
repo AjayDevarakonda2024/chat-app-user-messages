@@ -45,3 +45,18 @@ exports.updateMessage = async (req, res) => {
         res.status(500).json(err)
     }
 }
+
+exports.deleteMessage = async (req, res) => {
+    try{
+        let deleted = await usermessage.findOneAndDelete({"_id": req.params.id});
+        if(!deleted){
+            res.status(400).json({"message" : "message not deleted !!"})
+        }
+        else{
+            res.status(200).json({"message" : "message deleted successfully !!"})
+        }
+    }
+    catch(err){
+        res.status(500).json(err)
+    }
+}
