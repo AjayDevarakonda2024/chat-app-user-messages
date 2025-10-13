@@ -18,7 +18,7 @@ const upload = multer({
 });
 
 // ------------------ EXPORT MULTER MIDDLEWARE ------------------
-exports.uploadMiddleware = upload.single("postImage");
+exports.uploadMiddleware = upload.single("post");
 
 exports.getMessages = async (req, res)=>{
     try{
