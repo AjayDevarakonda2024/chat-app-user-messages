@@ -13,8 +13,6 @@ conn()
 
 const routes = require("./routes/messageRoutes")
 app.use("/message", routes)
-app.use("/uploads", express.static("uploads"));
-
 
 app.listen(process.env.PORT || 8000, ()=>{
     console.log("Server listening to port no.8000")

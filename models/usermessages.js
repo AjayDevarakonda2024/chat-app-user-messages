@@ -6,8 +6,7 @@ const messageSchema = new mongoose.Schema(
         "message" : {type : String},
         "likes" : {type : Number, default: 0},
         "likedBy": {type : [String], default: []},
-        "createdAt" : {type: Date, default: Date.now},
-        "post" : {type : String}
+        "createdAt" : {type: Date, default: Date.now}
     }
 )
 
