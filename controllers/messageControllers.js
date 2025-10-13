@@ -1,4 +1,24 @@
 const usermessage = require("../models/usermessages")
+const multer = require("multer");
+const path = require("path");
+
+// ------------------ IMAGE STORAGE CONFIG ------------------
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/"); // store images inside /uploads folder
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // rename file
+  },
+});
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB limit
+});
+
+// ------------------ EXPORT MULTER MIDDLEWARE ------------------
+exports.uploadMiddleware = upload.single("postImage");
 
 exports.getMessages = async (req, res)=>{
     try{
@@ -22,7 +42,8 @@ exports.getMessagesById = async (req, res)=>{
 
 exports.saveNewMessage = async(req, res)=>{
     try{
-        const newMessage = new usermessage(req.body);
+        const postUrl = req.file ? `/uploads/${req.file.filename}` : "";
+        const newMessage = new usermessage({...req.body, post: postUrl});
         await usermessage.insertOne(newMessage);
         res.status(200).json({"message": "message saved succesfully"})
     }
