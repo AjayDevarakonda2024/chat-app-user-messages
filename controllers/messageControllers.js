@@ -43,7 +43,13 @@ exports.getMessagesById = async (req, res)=>{
 exports.saveNewMessage = async(req, res)=>{
     try{
         const postUrl = req.file ? `/uploads/${req.file.filename}` : "";
-        const newMessage = new usermessage({...req.body, post: postUrl});
+        const newMessage = new usermessage({
+            user: req.body.user,
+            message: req.body.message,
+            post: postUrl,
+            likes: 0,
+            likedBy: []
+        });
         await usermessage.insertOne(newMessage);
         res.status(200).json({"message": "message saved succesfully"})
     }
