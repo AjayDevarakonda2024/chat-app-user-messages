@@ -4,6 +4,7 @@ const messageSchema = new mongoose.Schema(
     {
         "user" : {type : String},
         "message" : {type : String},
+        "video": { type: String, default: null },
         "likes" : {type : Number, default: 0},
         "likedBy": {type : [String], default: []},
         "comments": [
